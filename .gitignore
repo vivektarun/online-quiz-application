@@ -38,7 +38,7 @@ nyc_output/
 # PM2 Logs
 pids
 *.pid
-*.seed
+
 
 # IDEs
 .idea/

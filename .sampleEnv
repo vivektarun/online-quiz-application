@@ -1,0 +1,7 @@
+PORT = "your-port-number"
+NODE_ENV = "your-development-environment"
+DB_USERNAME = "your-database-username"
+DB_PASSWORD = "your-database-password"
+DB_DATABASE = "your-database-name"
+DB_HOST = "your-database-host-number"
+DB_DIALECT = "your-database-dilect"
