@@ -43,4 +43,4 @@ pids
 # IDEs
 .idea/
 *.iml
-
+config.json

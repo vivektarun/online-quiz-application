@@ -1,5 +1,5 @@
 const express = require('express');
-const { ServerConfig } = require('./config');
+const { serverConfig } = require('../src/config');
 const apiRoutes = require('./routes');
 
 const { errors } = require('../src/utils');
@@ -14,6 +14,6 @@ app.use('/api', apiRoutes);
 
 app.use(globalErrorHandler);
 
-app.listen(ServerConfig.PORT, () => {
-    console.log(`Server running on http://localhost:${ServerConfig.PORT}`)
+app.listen(serverConfig.PORT, () => {
+    console.log(`Server running on http://localhost:${serverConfig.PORT}`)
 })
