@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Each Submission belongs to a Quiz
       Submission.belongsTo(models.Quiz, { foreignKey: 'quizId', as: 'quiz' });
+      Submission.hasMany(models.SubmissionAnswer, { foreignKey: 'submissionId', as: 'submissionAnswers', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     }
   }
   Submission.init({
