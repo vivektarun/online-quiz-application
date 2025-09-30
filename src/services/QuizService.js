@@ -7,7 +7,7 @@ const quizRepository = new QuizRepository();
 
 class QuizService {
     async getAll() {
-        return quizRepository.findAll();
+        return quizRepository.getAll();
     }
 
     async getById(id) {
@@ -17,6 +17,7 @@ class QuizService {
     }
 
     async create(data) {
+        console.log("in service", data);
         return quizRepository.create(data);
     }
 
