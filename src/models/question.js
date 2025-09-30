@@ -4,7 +4,9 @@ const { Model, Sequelize } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Question extends Model {
     static associate(models) {
-      Question.belongsTo(models.Quiz, { foreignKey: 'quizId', as: 'quiz' })
+      Question.belongsTo(models.Quiz, { foreignKey: 'quizId', as: 'quiz' });
+      Question.hasMany(models.Answer, { foreignKey: 'questionId', as: 'answers', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+      Question.hasMany(models.SubmissionAnswer, { foreignKey: 'questionId', as: 'submissionAnswers', onDelete: 'RESTRICT', onUpdate: 'CASCADE' });
     }
   }
   Question.init({
