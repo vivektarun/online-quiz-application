@@ -5,9 +5,10 @@ module.exports = (sequelize, DataTypes) => {
   class Answer extends Model {
     static associate(models) {
       Answer.belongsTo(models.Question, { foreignKey: 'questionId', as: 'question' });
+      Answer.hasMany(models.SubmissionAnswer, { foreignKey: 'selectedAnswerId', as: 'submissionAnswers', onDelete: 'SET NULL', onUpdate: 'CASCADE' });
     }
   }
-  
+
   Answer.init({
     questionId: {
       type: DataTypes.INTEGER,
