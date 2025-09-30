@@ -17,7 +17,6 @@ class QuizService {
     }
 
     async create(data) {
-        console.log("in service", data);
         return quizRepository.create(data);
     }
 

@@ -1,4 +1,4 @@
 module.exports = {
-    QUESTION_TYPE: require('./enums'),
+    Enums: require('./enums'),
     responseHandler: require('./responseHandler'),
 }
