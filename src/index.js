@@ -1,7 +1,9 @@
 const express = require('express');
+const { serverConfig } = require('../src/config');
+const apiRoutes = require('./routes');
 
-const { ServerConfig } = require('./config');
-const apiRoutes = require('./routes'); // By default index.js in required.
+const { errors } = require('../src/utils');
+const { globalErrorHandler } = errors;
 
 const app = express();
 app.use(express.json());
@@ -10,6 +12,8 @@ app.use(express.text());
 
 app.use('/api', apiRoutes);
 
-app.listen(ServerConfig.PORT, () => {
-    console.log(`Server running on http://localhost:${ServerConfig.PORT}`)
+app.use(globalErrorHandler);
+
+app.listen(serverConfig.PORT, () => {
+    console.log(`Server running on http://localhost:${serverConfig.PORT}`)
 })

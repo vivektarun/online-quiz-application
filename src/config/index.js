@@ -1,3 +1,3 @@
 module.exports = {
-    ServerConfig: require('./server-config'),
+    serverConfig: require("./serverConfig"),
 }
