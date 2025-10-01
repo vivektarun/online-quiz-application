@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { SubmissionController } = require('../../controllers');
 
-const submissionController = new SubmissionController();
+const { submissionController } = require('../../compositionRoot');
 
 router.post('/', submissionController.create);
 

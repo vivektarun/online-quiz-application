@@ -1,14 +1,14 @@
 const { StatusCodes } = require('http-status-codes');
 const { sequelize } = require('../models');
-const { QuestionRepository, AnswerRepository } = require('../repositories');
 const { AppError } = require('../utils/errors');
 const { Enums } = require('../utils/common');
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT } = Enums.QUESTION_TYPE;
 
-const questionRepository = new QuestionRepository();
-const answerRepository = new AnswerRepository();
-
 class QuestionService {
+    constructor(questionRepository, answerRepository) {
+        this.questionRepository = questionRepository;
+        this.answerRepository = answerRepository;
+    }
     async createQuestionWithAnswer(data) {
         console.log(data);
         const transaction = await sequelize.transaction();
@@ -33,7 +33,7 @@ class QuestionService {
                 }
             }
 
-            const question = await questionRepository.create({
+            const question = await this.questionRepository.create({
                 quizId: data.quizId,
                 text: data.text,
                 type: data.type,
@@ -42,16 +42,16 @@ class QuestionService {
             }, { transaction });
 
             for (const answer of data.answers) {
-                await answerRepository.create({
+                await this.answerRepository.create({
                     questionId: question.id,
                     text: answer.text,
                     isCorrect: answer.isCorrect || false
                 }, { transaction });
             }
 
-            return await questionRepository.model.findByPk(question.id, {
+            return await this.questionRepository.model.findByPk(question.id, {
                 include: [{
-                    model: answerRepository.model,
+                    model: this.answerRepository.model,
                     as: 'answers',
                     attributes: ['id', 'text', 'isCorrect']
                 }]
@@ -63,21 +63,23 @@ class QuestionService {
     }
 
     async getAllQuestionsWithAnswers(quizId) {
+        console.log("inside service")
         const whereClause = {};
-        if (quizId) whereClause.quizId = quizId;
 
-        return await questionRepository.model.findAll({
+        if(quizId) whereClause.quizId = quizId;
+
+        return await this.questionRepository.model.findAll({
             where: whereClause,
             include: [
                 {
-                    model: answerRepository.model,
+                    model: this.answerRepository.model,
                     as: 'answers',
                     attributes: ['id', 'text'],
                 },
             ],
             order: [
                 ['id', 'ASC'],
-                [{ model: answerRepository.model, as: 'answers' }, 'id', 'ASC'],
+                [{ model: this.answerRepository.model, as: 'answers' }, 'id', 'ASC'],
             ],
         });
     }
