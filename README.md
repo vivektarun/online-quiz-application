@@ -115,7 +115,7 @@ Test the application in your web browser | postman:
 ```
 ### 2. Create Question
 - Methods: POST
-- Endpoint: `/api/v1/quizzes`
+- Endpoint: `/api/v1/question`
 - Headers: Content-Type: application/json
 
 **Single choice Question**
@@ -348,7 +348,7 @@ Response
 
 ### 4. Submission
 - Methods: POST
-- Endpoint: `/api/v1/quizzes`
+- Endpoint: `/api/v1/submission`
 - Headers: Content-Type: application/json
 
 Request
