@@ -1,5 +1,7 @@
 # Online Quiz Application
 
+![Project Banner](./assets/banner.png)
+
 ## Project Setup Guide
 
 Follow these steps to set up the **Online Quiz Application** project.
