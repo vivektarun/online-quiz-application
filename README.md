@@ -181,10 +181,10 @@ Request
   "points": 4,
   "negativePoints": 2,
   "answers": [
-    { "text": "first_name", "isCorrect": true }, // a
-    { "text": "1_variable", "isCorrect": false }, // b
-    { "text": "_var", "isCorrect": true },        // c
-    { "text": "var_2", "isCorrect": true }        // d
+    { "text": "first_name", "isCorrect": true }, 
+    { "text": "1_variable", "isCorrect": false }, 
+    { "text": "_var", "isCorrect": true },        
+    { "text": "var_2", "isCorrect": true }        
   ]
 }
 ```
@@ -268,4 +268,112 @@ Response
     "error": {}
 }
 ```
+### 3. Get All Question with `quizId`
+- Methods: GET
+- Endpoint: `/api/v1/question?quizId=1`
+- Headers: Content-Type: application/json
+
+Response
+```json
+{
+    "success": true,
+    "message": "Questions with answers fetched successfully",
+    "data": [
+        {
+            "id": 2,
+            "quizId": 1,
+            "text": "Which keyword is used to define a constant in JavaScript?",
+            "type": "single_choice",
+            "points": "2.00",
+            "negativePoints": "1.00",
+            "createdAt": "2025-10-01T14:57:30.000Z",
+            "updatedAt": "2025-10-01T14:57:30.000Z",
+            "answers": [
+                {
+                    "id": 1,
+                    "text": "let"
+                },
+                {
+                    "id": 2,
+                    "text": "const"
+                },
+                {
+                    "id": 3,
+                    "text": "var"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "quizId": 1,
+            "text": "Which of the following are valid variable names in Python?",
+            "type": "multiple_choice",
+            "points": "4.00",
+            "negativePoints": "2.00",
+            "createdAt": "2025-10-01T15:02:10.000Z",
+            "updatedAt": "2025-10-01T15:02:10.000Z",
+            "answers": [
+                {
+                    "id": 4,
+                    "text": "first_name"
+                },
+                {
+                    "id": 5,
+                    "text": "1_variable"
+                },
+                {
+                    "id": 6,
+                    "text": "_var"
+                },
+                {
+                    "id": 7,
+                    "text": "var_2"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "quizId": 1,
+            "text": "What is the typeof value for an array in JavaScript?",
+            "type": "text",
+            "points": "2.00",
+            "negativePoints": "1.00",
+            "createdAt": "2025-10-01T15:05:14.000Z",
+            "updatedAt": "2025-10-01T15:05:14.000Z"
+        }
+    ],
+    "error": {}
+}
+```
+
+### 4. Submission
+- Methods: POST
+- Endpoint: `/api/v1/quizzes`
+- Headers: Content-Type: application/json
+
+Request
+```json
+{
+  "quizId": 1,
+  "answers": [
+    { "questionId": 2, "selectedAnswerId": 2 },
+    { "questionId": 3, "selectedAnswerId": [4,6] },
+    { "questionId": 4, "textAnswer": "object" }
+  ]
+}
+```
+Response
+```json
+{
+    "success": true,
+    "message": "Submission recorded successfully",
+    "data": {
+        "quizId": 1,
+        "totalScore": 8,
+        "ScoreObtained": 6.666666666666666
+    },
+    "error": {}
+}
+```
+
 
