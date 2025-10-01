@@ -1,13 +1,19 @@
 const { StatusCodes } = require("http-status-codes");
-const { QuizService } = require("../services");
 const { responseHandler } = require("../utils/common");
 
-const quizService = new QuizService();
-
 class QuizController {
+    constructor(quizService) {
+        this.quizService = quizService;
+        this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
+    }
+
     async getAll(req, res, next) {
         try {
-            const quizzes = await quizService.getAll();
+            const quizzes = await this.quizService.getAll();
             responseHandler.successResponse(res, 'Quizzes fetched successfully', quizzes);
         } catch (err) {
             next(err);
@@ -17,7 +23,7 @@ class QuizController {
     async getById(req, res, next) {
         try {
             const { id } = req.params;
-            const quiz = await quizService.create(id);
+            const quiz = await this.quizService.getById(id);
             responseHandler.successResponse(res, 'Quiz fetched successfully', quiz);
         } catch (err) {
             next(err);
@@ -26,7 +32,8 @@ class QuizController {
 
     async create(req, res, next) {
         try {
-            const quiz = await quizService.create(req.body);
+            console.log("in create controller")
+            const quiz = await this.quizService.create(req.body);
             responseHandler.successResponse(res, 'Quiz created successfully', quiz, StatusCodes.CREATED);
         } catch (err) {
             next(err);
@@ -35,7 +42,7 @@ class QuizController {
 
     async update(req, res, next) {
         try {
-            const quiz = await quizService.update(req.params.id, req.body);
+            const quiz = await this.quizService.update(req.params.id, req.body);
             responseHandler.successResponse(res, 'Quiz updated successfully', quiz);
         } catch (err) {
             next(err);
@@ -44,7 +51,7 @@ class QuizController {
 
     async delete(req, res, next) {
         try {
-            await quizService.delete(req.params.id);
+            await this.quizService.delete(req.params.id);
             responseHandler.successResponse(res, 'Quiz deleted successfully');
         } catch (err) {
             next(err);

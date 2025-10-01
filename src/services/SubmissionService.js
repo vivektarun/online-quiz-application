@@ -1,15 +1,16 @@
 const { StatusCodes } = require('http-status-codes');
 const { sequelize } = require('../models');
-const { SubmissionRepository, SubmissionAnswerRepository, QuestionRepository, AnswerRepository } = require('../repositories');
 const { AppError } = require('../utils/errors');
+const { Enums } = require('../utils/common');
+const { SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT } = Enums.QUESTION_TYPE;
 
 
 class SubmissionService {
-    constructor() {
-        this.submissionRepository = new SubmissionRepository();
-        this.submissionAnswerRepository = new SubmissionAnswerRepository();
-        this.questionRepository = new QuestionRepository();
-        this.answerRepository = new AnswerRepository();
+    constructor(questionRepository, answerRepository, submissionRepository, submissionAnswerRepository) {
+        this.questionRepository = questionRepository;
+        this.answerRepository = answerRepository;
+        this.submissionRepository = submissionRepository;
+        this.submissionAnswerRepository = submissionAnswerRepository;
     }
 
     async createSubmission(data) {
@@ -35,7 +36,6 @@ class SubmissionService {
             });
 
             quizQuestions = quizQuestions.map(q => q.toJSON());
-            console.log(quizQuestions);
 
             let totalScore = 0;
             let obtainedScore = 0;
@@ -49,7 +49,6 @@ class SubmissionService {
 
             for(const userAnswer of data.answers) {
                 const question = quizQuestions.find(q => q.id === userAnswer.questionId);
-                console.log(question);
 
                 if(!question) {
                     throw new AppError(`Question ${userAnswer.questionId} not found for quiz`, StatusCodes.BAD_REQUEST);
@@ -57,7 +56,7 @@ class SubmissionService {
                 totalScore += parseFloat(question.points);
                 let score = 0;
 
-                if(question.type === 'text') {
+                if(question.type === TEXT) {
                     //case-insensitive exact match checking
                     const correctTexts = question.answers.filter(a => a.isCorrect).map(a => a.text.toLowerCase().trim());
 
@@ -75,7 +74,7 @@ class SubmissionService {
                         score: score
                     }, { transaction })
 
-                } else if(question.type === 'single_choice') {
+                } else if(question.type === SINGLE_CHOICE) {
                     console.log(question.type);
                     const correctAnswerId = question.answers.find(a => a.isCorrect)?.id;
                     console.log(correctAnswerId);
@@ -94,7 +93,7 @@ class SubmissionService {
                         score: score
                     }, { transaction });
 
-                } else if(question.type === 'multiple_choice') {
+                } else if(question.type === MULTIPLE_CHOICE) {
                     // Collect correct answer Ids
                     const correctIds = question.answers.filter(a => a.isCorrect).map(a => a.id);
                     const negativePoints = parseFloat(question.negativePoints);

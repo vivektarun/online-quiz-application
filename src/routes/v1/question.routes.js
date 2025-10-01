@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { QuestionController } = require('../../controllers');
-
-const questionController = new QuestionController();
+const { questionController } = require('../../compositionRoot')
 
 router.post('/', questionController.create);
 router.get('/', questionController.getAll);
