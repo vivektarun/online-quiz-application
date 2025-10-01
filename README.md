@@ -93,7 +93,7 @@ Test the application in your web browser | postman:
 
 ### 1. Create Quiz
 - Methods: POST
-- Endpoint: `/api/v1/quizzes`
+- Endpoint: `/api/v1/quiz`
 - Headers: Content-Type: application/json
 ```json
 {
