@@ -4,8 +4,6 @@
 
 Follow these steps to set up the **Online Quiz Application** project.
 
----
-
 ### 1. Fork and Clone the Project
 ```bash
 # Fork the project from GitHub
@@ -14,14 +12,10 @@ git clone <your_project_url>
 cd <your_project_folder>
 ```
 
----
-
 ### 2. Install Dependencies
 ```bash
 npm install
 ```
-
----
 
 ### 3. Setup Database
 Open MySQL and create a database for the project:
@@ -32,8 +26,6 @@ Enter you password
 ```sql
 CREATE DATABASE onlineQuizApplication_db;
 ```
-
----
 
 ### 4. Configuration File
 - Create a configuration file at `src/config/config.json`
@@ -64,8 +56,6 @@ CREATE DATABASE onlineQuizApplication_db;
 }
 ```
 
----
-
 ### 5. Setup Environment Variables
 Create a `.env` file in the root directory of your project:
 ```
@@ -73,22 +63,17 @@ PORT=3002
 NODE_ENV=development
 ```
 
----
-
 ### 6. Run Migrations
 Go to the `src` folder and run database migrations:
 ```bash
 npx sequelize-cli db:migrate
 ```
----
 
 ### 7. Start the Project
 Go back to root Folder and start the project
 ```bash
 npm run start
 ```
-
----
 
 ### 8. Access the Application
 Test the application in your web browser | postman:
@@ -103,4 +88,184 @@ Test the application in your web browser | postman:
   "data": {}
 }
 ```
----
+
+## Important APIs
+
+### 1. Create Quiz
+- Methods: POST
+- Endpoint: `/api/v1/quizzes`
+- Headers: Content-Type: application/json
+```json
+{
+  "title": "Programming Concepts Quiz"
+}
+```
+```json
+{
+  "success": true,
+  "message": "Quiz created successfully",
+  "data": {
+    "id": 1,
+    "title": "General Knowledge Quiz",
+    "createdAt": "2025-10-01T01:00:00.000Z",
+    "updatedAt": "2025-10-01T01:00:00.000Z"
+  },
+  "error": {}
+}
+```
+### 2. Create Question
+- Methods: POST
+- Endpoint: `/api/v1/quizzes`
+- Headers: Content-Type: application/json
+
+**Single choice Question**
+
+Request
+```json
+{
+  "quizId": 1,
+  "text": "Which keyword is used to define a constant in JavaScript?",
+  "type": "single_choice",
+  "points": 2,
+  "negativePoints": 1,
+  "answers": [
+    { "text": "let", "isCorrect": false },
+    { "text": "const", "isCorrect": true },
+    { "text": "var", "isCorrect": false }
+  ]
+}
+```
+Response
+```json
+{
+    "success": true,
+    "message": "Question created successfully",
+    "data": {
+        "id": 2,
+        "quizId": 1,
+        "text": "Which keyword is used to define a constant in JavaScript?",
+        "type": "single_choice",
+        "points": "2.00",
+        "negativePoints": "1.00",
+        "createdAt": "2025-10-01T14:57:30.000Z",
+        "updatedAt": "2025-10-01T14:57:30.000Z",
+        "answers": [
+            {
+                "id": 1,
+                "text": "let",
+                "isCorrect": false
+            },
+            {
+                "id": 2,
+                "text": "const",
+                "isCorrect": true
+            },
+            {
+                "id": 3,
+                "text": "var",
+                "isCorrect": false
+            }
+        ]
+    },
+    "error": {}
+}
+```
+**Multiple choice Question**
+
+Request
+```json
+{
+  "quizId": 1,
+  "text": "Which of the following are valid variable names in Python?",
+  "type": "multiple_choice",
+  "points": 4,
+  "negativePoints": 2,
+  "answers": [
+    { "text": "first_name", "isCorrect": true }, // a
+    { "text": "1_variable", "isCorrect": false }, // b
+    { "text": "_var", "isCorrect": true },        // c
+    { "text": "var_2", "isCorrect": true }        // d
+  ]
+}
+```
+Response
+```json
+{
+    "success": true,
+    "message": "Question created successfully",
+    "data": {
+        "id": 3,
+        "quizId": 1,
+        "text": "Which of the following are valid variable names in Python?",
+        "type": "multiple_choice",
+        "points": "4.00",
+        "negativePoints": "2.00",
+        "createdAt": "2025-10-01T15:02:10.000Z",
+        "updatedAt": "2025-10-01T15:02:10.000Z",
+        "answers": [
+            {
+                "id": 4,
+                "text": "first_name",
+                "isCorrect": true
+            },
+            {
+                "id": 5,
+                "text": "1_variable",
+                "isCorrect": false
+            },
+            {
+                "id": 6,
+                "text": "_var",
+                "isCorrect": true
+            },
+            {
+                "id": 7,
+                "text": "var_2",
+                "isCorrect": true
+            }
+        ]
+    },
+    "error": {}
+}
+```
+**Text Input Question**
+
+Request
+```json
+{
+  "quizId": 1,
+  "text": "What is the typeof value for an array in JavaScript?",
+  "type": "text",
+  "points": 2,
+  "negativePoints": 1,
+  "answers": [
+    { "text": "object", "isCorrect": true }
+  ]
+}
+```
+Response
+```json
+{
+    "success": true,
+    "message": "Question created successfully",
+    "data": {
+        "id": 4,
+        "quizId": 1,
+        "text": "What is the typeof value for an array in JavaScript?",
+        "type": "text",
+        "points": "2.00",
+        "negativePoints": "1.00",
+        "createdAt": "2025-10-01T15:05:14.000Z",
+        "updatedAt": "2025-10-01T15:05:14.000Z",
+        "answers": [
+            {
+                "id": 8,
+                "text": "object",
+                "isCorrect": true
+            }
+        ]
+    },
+    "error": {}
+}
+```
+
