@@ -19,9 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(5,2),
       allowNull: false,
       defaultValue: 0,
-      validate: {
-        min: 0
-      }
     },
     total: {
       type: DataTypes.DECIMAL(5,2),
