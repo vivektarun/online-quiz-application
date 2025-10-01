@@ -377,5 +377,30 @@ Response
     "error": {}
 }
 ```
+### 5. List of All available Quizzes
+- Methods: GET
+- Endpoint: `/api/v1/quiz`
+- Headers: Content-Type: application/json
 
-
+Response
+```json
+{
+    "success": true,
+    "message": "Quizzes fetched successfully",
+    "data": [
+        {
+            "id": 1,
+            "title": "Programming Concepts Quiz",
+            "createdAt": "2025-10-01T08:47:44.000Z",
+            "updatedAt": "2025-10-01T08:47:44.000Z"
+        },
+        {
+            "id": 2,
+            "title": "Shell Scripting quiz",
+            "createdAt": "2025-10-01T17:22:31.000Z",
+            "updatedAt": "2025-10-01T17:22:31.000Z"
+        }
+    ],
+    "error": {}
+}
+```
