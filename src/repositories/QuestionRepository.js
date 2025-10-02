@@ -40,6 +40,28 @@ class QuestionRepository extends CrudRepository {
             transaction
         });
     }
+
+    // Fetch questions with answers filtered by quizId and questionIds
+    async findQuestionsWithAnswers(quizId, questionIds) {
+        return await this.model.findAll({
+            where: {
+                quizId,
+                id: questionIds
+            },
+            include: [
+                {
+                    model: Answer,
+                    as: 'answers',
+                    attributes: ['id', 'text', 'isCorrect'],
+                }
+            ],
+            order: [
+                ['id', 'ASC'],
+                [{ model: Answer, as: 'answers' }, 'id', 'ASC'],
+            ],
+        });
+    }
+
 }
 
 module.exports = QuestionRepository;
