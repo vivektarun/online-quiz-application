@@ -1,8 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
 const { sequelize } = require('../models');
-const { AppError } = require('../utils/errors');
-const { Enums } = require('../utils/common');
-const { SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT } = Enums.QUESTION_TYPE;
 
 class QuestionService {
     constructor(questionRepository, answerRepository) {
@@ -13,6 +10,7 @@ class QuestionService {
     async createQuestionWithAnswer(data) {
         const transaction = await sequelize.transaction();
         try {
+            // Create question
             const question = await this.questionRepository.create({
                 quizId: data.quizId,
                 text: data.text,
@@ -21,6 +19,7 @@ class QuestionService {
                 negativePoints: data.negativePoints || 0
             }, { transaction });
 
+            // Create all answers in a loop with transaction
             for (const answer of data.answers) {
                 await this.answerRepository.create({
                     questionId: question.id,
@@ -29,13 +28,11 @@ class QuestionService {
                 }, { transaction });
             }
 
-            return await this.questionRepository.model.findByPk(question.id, {
-                include: [{
-                    model: this.answerRepository.model,
-                    as: 'answers',
-                    attributes: ['id', 'text', 'isCorrect']
-                }]
-            })
+            // Fetch created question with its answers
+            const result = await this.questionRepository.findByIdWithAnswers(question.id, transaction);
+
+            await transaction.commit();
+            return result;
         } catch (err) {
             await transaction.rollback();
             throw err;
@@ -43,24 +40,7 @@ class QuestionService {
     }
 
     async getAllQuestionsWithAnswers(quizId) {
-        const whereClause = {};
-
-        if(quizId) whereClause.quizId = quizId;
-
-        return await this.questionRepository.model.findAll({
-            where: whereClause,
-            include: [
-                {
-                    model: this.answerRepository.model,
-                    as: 'answers',
-                    attributes: ['id', 'text'],
-                },
-            ],
-            order: [
-                ['id', 'ASC'],
-                [{ model: this.answerRepository.model, as: 'answers' }, 'id', 'ASC'],
-            ],
-        });
+        return this.questionRepository.findAllWithAnswersByQuizId(quizId);
     }
 }
 
