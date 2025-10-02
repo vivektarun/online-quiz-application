@@ -9,30 +9,10 @@ class QuestionService {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
     }
+
     async createQuestionWithAnswer(data) {
-        console.log(data);
         const transaction = await sequelize.transaction();
         try {
-            if (!data.quizId) throw new AppError('quizId is required', StatusCodes.BAD_REQUEST);
-            if (!data.text) throw new AppError('Question text is required', StatusCodes.BAD_REQUEST);
-            if (!data.type) throw new AppError('Question type is required', StatusCodes.BAD_REQUEST);
-
-            const validTypes = [SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT];
-
-            if (!validTypes.includes(data.type)) {
-                throw new AppError(`Invalid question type: ${data.type}`, StatusCodes.BAD_REQUEST);
-            }
-
-            if (validTypes.includes(data.type)) {
-                if (!Array.isArray(data.answers) || data.answers.length === 0) {
-                    throw new AppError('Answers are required for this question type', StatusCodes.BAD_REQUEST);
-                }
-                const correctCount = data.answers.filter(a => a.isCorrect === true).length;
-                if (correctCount === 0) {
-                    throw new AppError('At least one answer must be correct', StatusCodes.BAD_REQUEST);
-                }
-            }
-
             const question = await this.questionRepository.create({
                 quizId: data.quizId,
                 text: data.text,
@@ -63,7 +43,6 @@ class QuestionService {
     }
 
     async getAllQuestionsWithAnswers(quizId) {
-        console.log("inside service")
         const whereClause = {};
 
         if(quizId) whereClause.quizId = quizId;
