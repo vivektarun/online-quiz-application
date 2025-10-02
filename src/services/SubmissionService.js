@@ -18,7 +18,6 @@ class SubmissionService {
 
         try {
             //Fetch only questions answered by the user with associated answers
-            console.log(data);
             const questionIds = data.answers.map(a => a.questionId);
 
             let quizQuestions = await this.questionRepository.model.findAll({

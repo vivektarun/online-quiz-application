@@ -3,6 +3,12 @@ const router = express.Router();
 
 const { submissionController } = require('../../compositionRoot');
 
-router.post('/', submissionController.create);
+const { submissionValidator } = require('../../middlewares');
+
+const {
+    validateCreateSubmission
+} = submissionValidator;
+
+router.post('/', validateCreateSubmission, submissionController.create);
 
 module.exports = router;
