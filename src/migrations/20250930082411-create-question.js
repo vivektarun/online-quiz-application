@@ -1,21 +1,19 @@
 'use strict';
 
-
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Questions', {
+    await queryInterface.createTable('questions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      quizId: {
+      quiz_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Quizzes',
+          model: 'quizzes',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -34,17 +32,17 @@ module.exports = {
         allowNull: false,
         defaultValue: 0
       },
-      negativePoints: {
+      negative_points: {
         type: Sequelize.DECIMAL(4,2),
         allowNull: false,
         defaultValue: 0,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
@@ -52,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Questions');
+    await queryInterface.dropTable('questions');
   }
 };

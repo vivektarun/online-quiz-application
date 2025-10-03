@@ -6,14 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   class Submission extends Model {
     static associate(models) {
       // Each Submission belongs to a Quiz
-      Submission.belongsTo(models.Quiz, { foreignKey: 'quizId', as: 'quiz' });
-      Submission.hasMany(models.SubmissionAnswer, { foreignKey: 'submissionId', as: 'submissionAnswers', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+      Submission.belongsTo(models.Quiz, { foreignKey: 'quiz_id', as: 'quiz' });
+      Submission.hasMany(models.SubmissionAnswer, { foreignKey: 'submission_id', as: 'submissionAnswers', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     }
   }
   Submission.init({
     quizId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: 'quiz_id'
     },
     score: {
       type: DataTypes.DECIMAL(5,2),
@@ -30,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Submission',
-    tableName: 'Submissions',
-    timestamps: true
+    tableName: 'submissions',
+    timestamps: true,
+    underscored: true
   });
   return Submission;
 };

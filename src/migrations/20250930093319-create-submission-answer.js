@@ -2,44 +2,44 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('SubmissionAnswers', {
+    await queryInterface.createTable('submission_answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      submissionId: {
+      submission_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Submissions',
+          model: 'submissions',
           key: 'id',
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      questionId: {
+      question_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Questions',
+          model: 'questions',
           key: 'id',
         },
         onDelete: 'RESTRICT',
         onUpdate: 'CASCADE',
       },
-      selectedAnswerId: {
+      selected_answer_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'Answers',
+          model: 'answers',
           key: 'id',
         },
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       },
-      textAnswer: {
+      text_answer: {
         type: Sequelize.STRING(255),
         allowNull: true,
       },
@@ -48,12 +48,12 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
@@ -62,6 +62,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('SubmissionAnswers');
+    await queryInterface.dropTable('submission_answers');
   },
 };

@@ -20,13 +20,13 @@ npm install
 ```
 
 ### 3. Setup Database
-Open MySQL and create a database for the project:
+Open MySQL and create a database for the project using root or any other user with sufficient privileges.
 ```bash
 mysql -u root -p
 ```
 Enter you password
 ```sql
-CREATE DATABASE onlineQuizApplication_db;
+CREATE DATABASE online_quiz_application_db;
 ```
 
 ### 4. Configuration File
@@ -37,7 +37,7 @@ CREATE DATABASE onlineQuizApplication_db;
   "development": {
     "username": "your-db-username",
     "password": "your-db-password",
-    "database": "onlineQuizApplication_db",
+    "database": "online_quiz_application_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

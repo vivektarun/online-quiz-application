@@ -5,8 +5,8 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Quiz extends Model {
     static associate(models) {
-      Quiz.hasMany(models.Question, { foreignKey: 'quizId', as: 'questions', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
-      Quiz.hasMany(models.Submission, { foreignKey: 'quizId', as: 'submissions', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+      Quiz.hasMany(models.Question, { foreignKey: 'quiz_id', as: 'questions', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
+      Quiz.hasMany(models.Submission, { foreignKey: 'quiz_id', as: 'submissions', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     }
   }
   Quiz.init({
@@ -21,8 +21,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Quiz',
-    tableName: 'Quizzes',
+    tableName: 'quizzes',
     timestamps: true,
+    underscored: true
   });
   return Quiz;
 };
