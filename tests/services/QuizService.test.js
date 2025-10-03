@@ -1,6 +1,5 @@
 const { QuizService } = require('../../src/services');
 const { AppError } = require('../../src/utils/errors');
-const { StatusCodes } = require('http-status-codes');
 
 describe('QuizService', () => {
     let mockQuizRepository;
