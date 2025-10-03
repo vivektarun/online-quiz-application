@@ -17,6 +17,17 @@ Built with Node.js, Express, and MySQL (via Sequelize ORM), the application prov
 
 This system is ideal for educational tools, corporate training, or interactive online quizzes, aiming to deliver a reliable and extensible foundation for quiz platforms.
 
+## Important Links
+
+- **Database Diagram:** [Open Database diagram](https://dbdocs.io/vivektarun1234/Online-Quiz-Application?view=relationships)
+- **SQL Query Runner:** [RunSql](https://runsql.com/r/c7dc9e5e75f6eaea)
+- **Sequence Diagram:** [Open Sequence Diagram](./assets/sequence_diagram.svg)
+- **Flow Diagram:** [Add Question Flow Diagram](./assets/add_question_flow_diagram.svg)
+- **Flow Diagram:** [Submission Flow Diagram](./assets/Submission-flow-diagram.svg)
+- **Canvas:** [Open Canvas](https://github.com/yourusername/your-repo-name/blob/main/LICENSE)
+
+
+
 
 ## Project Setup Guide
 
@@ -111,7 +122,7 @@ Test the application in your web browser | postman:
 
 ### 1. Create Quiz
 - Methods: POST
-- Endpoint: `/api/v1/quiz`
+- Endpoint: `/api/v1/quizzes`
 - Headers: Content-Type: application/json
 ```json
 {
@@ -133,7 +144,7 @@ Test the application in your web browser | postman:
 ```
 ### 2. Create Question
 - Methods: POST
-- Endpoint: `/api/v1/question`
+- Endpoint: `/api/v1/questions`
 - Headers: Content-Type: application/json
 
 **Single choice Question**
@@ -288,7 +299,7 @@ Response
 ```
 ### 3. Get All Question with `quizId`
 - Methods: GET
-- Endpoint: `/api/v1/question?quizId=1`
+- Endpoint: `/api/v1/questions?quizId=1`
 - Headers: Content-Type: application/json
 
 Response
@@ -366,7 +377,7 @@ Response
 
 ### 4. Submission
 - Methods: POST
-- Endpoint: `/api/v1/submission`
+- Endpoint: `/api/v1/submissions`
 - Headers: Content-Type: application/json
 
 Request
@@ -395,7 +406,7 @@ Response
 ```
 ### 5. List of All available Quizzes
 - Methods: GET
-- Endpoint: `/api/v1/quiz`
+- Endpoint: `/api/v1/quizzes`
 - Headers: Content-Type: application/json
 
 Response
