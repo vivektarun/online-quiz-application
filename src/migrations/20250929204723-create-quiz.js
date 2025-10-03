@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      created_at: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
