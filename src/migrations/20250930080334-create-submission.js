@@ -2,18 +2,18 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Submissions', {
+    await queryInterface.createTable('submissions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      quizId: {
+      quiz_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Quizzes',
+          model: 'quizzes',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -28,12 +28,12 @@ module.exports = {
         type: Sequelize.DECIMAL(5,2),
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Submissions');
+    await queryInterface.dropTable('submissions');
   }
 };

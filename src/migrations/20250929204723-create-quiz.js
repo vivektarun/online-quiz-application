@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Quizzes', {
+    await queryInterface.createTable('quizzes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,12 +13,12 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
@@ -27,6 +27,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Quizzes');
+    await queryInterface.dropTable('quizzes');
   }
 };

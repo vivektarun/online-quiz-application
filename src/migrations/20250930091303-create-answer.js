@@ -2,18 +2,18 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Answers', {
+    await queryInterface.createTable('answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      questionId: {
+      question_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Questions',
+          model: 'questions',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -23,17 +23,17 @@ module.exports = {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      isCorrect: {
+      is_correct: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Answers');
+    await queryInterface.dropTable('answers');
   }
 };
