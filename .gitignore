@@ -44,3 +44,6 @@ pids
 .idea/
 *.iml
 config.json
+
+# Jest HTML test report
+test-report.html
