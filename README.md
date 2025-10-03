@@ -2,6 +2,22 @@
 
 ![Project Banner](./assets/banner.png)
 
+## About
+
+This project is an **Online Quiz Application** designed to enable creating, managing, and taking quizzes featuring various question types such as single choice, multiple choice, and text input. 
+
+Built with Node.js, Express, and MySQL (via Sequelize ORM), the application provides a scalable backend API with features including:
+
+- Robust quiz and question management
+- Accurate scoring with support for partial credit and negative marking
+- Transaction-safe operations ensuring data integrity
+- Clear separation of concerns with repository, service, and controller layers
+- Comprehensive input validation and global error handling
+- Automated tests covering critical functionalities
+
+This system is ideal for educational tools, corporate training, or interactive online quizzes, aiming to deliver a reliable and extensible foundation for quiz platforms.
+
+
 ## Project Setup Guide
 
 Follow these steps to set up the **Online Quiz Application** project.
