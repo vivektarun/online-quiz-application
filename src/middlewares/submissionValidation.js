@@ -2,23 +2,25 @@ const { StatusCodes } = require("http-status-codes");
 const { errorResponse } = require("../utils/common/responseHandler");
 const { AppError } = require("../utils/errors");
 
-
+/**
+ * Middleware to validate the request body when creating a submission
+ */
 function validateCreateSubmission(req, res, next) {
   const { quizId, answers } = req.body;
 
-  // Validate quizId - must exist and be a valid number
+  // Validate quizId - required and must be a valid number
   if (!quizId || isNaN(Number(quizId))) {
     const error = new AppError("quizId is required and must be a valid number.", StatusCodes.BAD_REQUEST);
     return errorResponse(res, error.message, error.statusCode, error);
   }
 
-  // Validate answers - must be a non-empty array
+  // Validate answers - must be an array and not empty
   if (!Array.isArray(answers) || answers.length === 0) {
     const error = new AppError("Answers must be a non-empty array.", StatusCodes.BAD_REQUEST);
     return errorResponse(res, error.message, error.statusCode, error);
   }
 
-  // Iterate over each answer object for detailed validation
+  // Iterate over each answer object for detailed field validations
   for (const [index, ans] of answers.entries()) {
     // questionId must exist and be a valid number
     if (!ans.questionId || isNaN(Number(ans.questionId))) {
@@ -26,7 +28,7 @@ function validateCreateSubmission(req, res, next) {
       return errorResponse(res, error.message, error.statusCode, error);
     }
 
-    // At least one of selectedAnswerId or textAnswer must be present (but not both)
+    // Validate presence of either selectedAnswerId or textAnswer (but not both)
     const hasSelectedAnswerId = ans.hasOwnProperty("selectedAnswerId");
     const hasTextAnswer = ans.hasOwnProperty("textAnswer");
 
@@ -40,7 +42,7 @@ function validateCreateSubmission(req, res, next) {
       return errorResponse(res, error.message, error.statusCode, error);
     }
 
-    // Validate selectedAnswerId - must be a number or an array of numbers
+    // Validate selectedAnswerId is a number or an array of numbers
     if (hasSelectedAnswerId) {
       if (
         !(
@@ -57,7 +59,7 @@ function validateCreateSubmission(req, res, next) {
       }
     }
 
-    // Validate textAnswer - must be a non-empty string
+    // Validate textAnswer is a non-empty string
     if (hasTextAnswer) {
       if (typeof ans.textAnswer !== "string" || !ans.textAnswer.trim()) {
         const error = new AppError(`textAnswer at index ${index} must be a non-empty string.`, StatusCodes.BAD_REQUEST);
@@ -66,7 +68,7 @@ function validateCreateSubmission(req, res, next) {
     }
   }
 
-  // If all validations pass, move to next middleware/controller
+  // All validation passed; proceed to next middleware/controller
   next();
 }
 
