@@ -1,3 +1,5 @@
+const { sequelize } = require('./models');
+
 const { 
     QuizRepository, 
     QuestionRepository, 
@@ -23,7 +25,7 @@ const quizController = new QuizController(quizService);
 const questionRepository = new QuestionRepository();
 const answerRepository = new AnswerRepository();
 
-const questionService = new QuestionService(questionRepository, answerRepository);
+const questionService = new QuestionService(questionRepository, answerRepository, sequelize);
 const questionController = new QuestionController(questionService);
 
 const submissionRepository = new SubmissionRepository();
@@ -33,8 +35,9 @@ const submissionService = new SubmissionService(
     questionRepository,
     answerRepository,
     submissionRepository,
-    submissionAnswerRepository
-);``
+    submissionAnswerRepository,
+    sequelize
+);
 
 const submissionController = new SubmissionController(submissionService);
 

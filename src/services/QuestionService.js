@@ -1,14 +1,12 @@
-const { StatusCodes } = require('http-status-codes');
-const { sequelize } = require('../models');
-
 class QuestionService {
-    constructor(questionRepository, answerRepository) {
+    constructor(questionRepository, answerRepository, sequelize) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
+        this.sequelize = sequelize;
     }
 
     async createQuestionWithAnswer(data) {
-        const transaction = await sequelize.transaction();
+        const transaction = await this.sequelize.transaction();
         try {
             // Create question
             const question = await this.questionRepository.create({

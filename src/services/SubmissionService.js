@@ -1,4 +1,3 @@
-const { sequelize } = require('../models');
 const { AppError } = require('../utils/errors');
 const {
     scoreTextQuestion,
@@ -12,15 +11,16 @@ const { Enums } = require('../utils/common');
 const { SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT } = Enums.QUESTION_TYPE;
 
 class SubmissionService {
-    constructor(questionRepository, answerRepository, submissionRepository, submissionAnswerRepository) {
+    constructor(questionRepository, answerRepository, submissionRepository, submissionAnswerRepository, sequelize) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
         this.submissionRepository = submissionRepository;
         this.submissionAnswerRepository = submissionAnswerRepository;
+        this.sequelize = sequelize;
     }
 
     async createSubmission(data) {
-        const transaction = await sequelize.transaction();
+        const transaction = await this.sequelize.transaction();
         try {
             const questionIds = data.answers.map(a => a.questionId);
             let quizQuestions = await this.questionRepository.findQuestionsWithAnswers(data.quizId, questionIds);

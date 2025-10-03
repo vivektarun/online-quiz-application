@@ -1,5 +1,8 @@
 'use strict';
-const { Model, Sequelize } = require('sequelize');
+const { Model } = require('sequelize');
+
+const { Enums } = require('../utils/common');
+const { SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT } = Enums.QUESTION_TYPE;
 
 module.exports = (sequelize, DataTypes) => {
   class Question extends Model {
@@ -23,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     type: {
-      type: DataTypes.ENUM('single_choice', 'multiple_choice', 'text'),
+      type: DataTypes.ENUM(SINGLE_CHOICE, MULTIPLE_CHOICE, TEXT),
       allowNull: false
     },
     points: {
