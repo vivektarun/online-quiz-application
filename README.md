@@ -17,6 +17,8 @@ Built with Node.js, Express, and MySQL (via Sequelize ORM), the application prov
 
 This system is ideal for educational tools, corporate training, or interactive online quizzes, aiming to deliver a reliable and extensible foundation for quiz platforms.
 
+[![Watch the demo](https://img.youtube.com/vi/J-gTLQ6mxk4/0.jpg)](https://youtu.be/J-gTLQ6mxk4)
+
 ## Important Links
 
 - **Database Diagram:** [Open Database diagram](https://dbdocs.io/vivektarun1234/Online-Quiz-Application?view=relationships)
