@@ -104,7 +104,15 @@ Go back to root Folder and start the project
 npm run start
 ```
 
-### 8. Access the Application
+### 8. Run tests (Optional)
+```bash
+npm run test
+```
+
+Can see the report in the web running test-report.html file
+
+
+### 9. Access the Application
 Test the application in your web browser | postman:
 - Methods: GET
 - Endpoint: `http://localhost:3002/api/v1/info`
