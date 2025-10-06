@@ -25,17 +25,16 @@ This system is ideal for educational tools, corporate training, or interactive o
 - **SQL Query Runner:** [RunSql](https://runsql.com/r/c7dc9e5e75f6eaea)
 - **Sequence Diagram:** [Download Sequence Diagram](./assets/sequence-diagram.svg)
 - **Flow Diagram:** [Download Add Question Flow Diagram](./assets/add-question-flow-diagram.svg)
-- **Flow Diagram:** [Download Submission Flow Diagram](./assets/Submission-flow-diagram.svg)
-- **Canvas:** [Download Canvas](https://github.com/yourusername/your-repo-name/blob/main/LICENSE)
-
-
-
+- **Flow Diagram:** [Download Submission Flow Diagram](./assets/submission-flow-diagram.svg)
+- **Canvas:** [Download Canvas](./assets/canvas.svg)
+- **Submission Dryrun** [Download pdf](./assets/submission-dryrun.pdf)
 
 ## Project Setup Guide
 
 Follow these steps to set up the **Online Quiz Application** project.
 
 ### 1. Fork and Clone the Project
+
 ```bash
 # Fork the project from GitHub
 # Then clone it to your local machine
@@ -44,23 +43,30 @@ cd <your_project_folder>
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Setup Database
+
 Open MySQL and create a database for the project using root or any other user with sufficient privileges.
+
 ```bash
 mysql -u root -p
 ```
+
 Enter you password
+
 ```sql
 CREATE DATABASE online_quiz_application_db;
 ```
 
 ### 4. Configuration File
+
 - Create a configuration file at `src/config/config.json`
 - configure your database `username` and `password` in the `development` section.
+
 ```json
 {
   "development": {
@@ -88,25 +94,32 @@ CREATE DATABASE online_quiz_application_db;
 ```
 
 ### 5. Setup Environment Variables
+
 Create a `.env` file in the root directory of your project:
-```
+
+```text
 PORT=3002
 NODE_ENV=development
 ```
 
 ### 6. Run Migrations
+
 Go to the `src` folder and run database migrations:
+
 ```bash
 npx sequelize-cli db:migrate
 ```
 
 ### 7. Start the Project
+
 Go back to root Folder and start the project
+
 ```bash
 npm run start
 ```
 
 ### 8. Run tests (Optional)
+
 ```bash
 npm run test
 ```
@@ -115,11 +128,14 @@ Can see the report in the web running test-report.html file
 
 
 ### 9. Access the Application
+
 Test the application in your web browser | postman:
+
 - Methods: GET
 - Endpoint: `http://localhost:3002/api/v1/info`
 - Headers: Content-Type: application/json
-```
+
+```text
 {
   "success": true,
   "message": "Api is up",
@@ -131,14 +147,17 @@ Test the application in your web browser | postman:
 ## Important APIs
 
 ### 1. Create Quiz
+
 - Methods: POST
 - Endpoint: `/api/v1/quizzes`
 - Headers: Content-Type: application/json
+
 ```json
 {
   "title": "Programming Concepts Quiz"
 }
 ```
+
 ```json
 {
   "success": true,
@@ -152,7 +171,9 @@ Test the application in your web browser | postman:
   "error": {}
 }
 ```
+
 ### 2. Create Question
+
 - Methods: POST
 - Endpoint: `/api/v1/questions`
 - Headers: Content-Type: application/json
@@ -160,6 +181,7 @@ Test the application in your web browser | postman:
 **Single choice Question**
 
 Request
+
 ```json
 {
   "quizId": 1,
@@ -174,7 +196,9 @@ Request
   ]
 }
 ```
+
 Response
+
 ```json
 {
     "success": true,
@@ -209,9 +233,11 @@ Response
     "error": {}
 }
 ```
+
 **Multiple choice Question**
 
 Request
+
 ```json
 {
   "quizId": 1,
@@ -227,7 +253,9 @@ Request
   ]
 }
 ```
+
 Response
+
 ```json
 {
     "success": true,
@@ -267,9 +295,11 @@ Response
     "error": {}
 }
 ```
+
 **Text Input Question**
 
 Request
+
 ```json
 {
   "quizId": 1,
@@ -282,7 +312,9 @@ Request
   ]
 }
 ```
+
 Response
+
 ```json
 {
     "success": true,
@@ -307,12 +339,15 @@ Response
     "error": {}
 }
 ```
+
 ### 3. Get All Question with `quizId`
+
 - Methods: GET
 - Endpoint: `/api/v1/questions?quizId=1`
 - Headers: Content-Type: application/json
 
 Response
+
 ```json
 {
     "success": true,
@@ -386,11 +421,13 @@ Response
 ```
 
 ### 4. Submission
+
 - Methods: POST
 - Endpoint: `/api/v1/submissions`
 - Headers: Content-Type: application/json
 
 Request
+
 ```json
 {
   "quizId": 1,
@@ -401,7 +438,9 @@ Request
   ]
 }
 ```
+
 Response
+
 ```json
 {
     "success": true,
@@ -414,12 +453,15 @@ Response
     "error": {}
 }
 ```
+
 ### 5. List of All available Quizzes
+
 - Methods: GET
 - Endpoint: `/api/v1/quizzes`
 - Headers: Content-Type: application/json
 
 Response
+
 ```json
 {
     "success": true,
