@@ -25,7 +25,7 @@ This system is ideal for educational tools, corporate training, or interactive o
 - **SQL Query Runner:** [RunSql](https://runsql.com/r/c7dc9e5e75f6eaea)
 - **Sequence Diagram:** [Download Sequence Diagram](./assets/sequence-diagram.svg)
 - **Flow Diagram:** [Download Add Question Flow Diagram](./assets/add-question-flow-diagram.svg)
-- **Flow Diagram:** [Download Submission Flow Diagram](./assets/Submissions-flow-diagram.svg)
+- **Flow Diagram:** [Download Submission Flow Diagram](./assets/submissions-flow-diagram.svg)
 - **Canvas:** [Download Canvas](./assets/canvas.svg)
 - **Submission Dryrun** [Download pdf](./assets/submission-dryrun.pdf)
 
